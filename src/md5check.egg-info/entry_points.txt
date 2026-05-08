@@ -1,0 +1,3 @@
+[console_scripts]
+md5check = md5check.cli:main
+

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p src/md5check conda.recipe .github/workflows)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import setuptools; print\\(setuptools.__version__\\)\")",
+      "Read(//d/anaconda3/**)",
+      "Bash(conda run *)"
+    ]
+  }
+}

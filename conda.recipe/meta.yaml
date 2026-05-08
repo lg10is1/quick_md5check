@@ -1,0 +1,48 @@
+{% set name = "md5check" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {% raw %}{% endraw %}  # Update with actual SHA256 after release
+
+build:
+  noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - python >=3.8
+    - pip
+    - setuptools
+  run:
+    - python >=3.8
+    - tqdm >=4.60
+
+test:
+  imports:
+    - md5check
+  commands:
+    - md5check --help
+    - md5check --version
+
+about:
+  home: https://github.com/hennipa/md5check
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: "Multi-threaded MD5 checksum generator and verifier"
+  description: |
+    md5check is a multi-threaded tool for generating and verifying MD5 checksums.
+    It uses a thread pool to process multiple files concurrently, significantly
+    speeding up checksum operations on multi-core systems. Compatible with the
+    standard md5sum output format.
+  dev_url: https://github.com/hennipa/md5check
+
+extra:
+  recipe-maintainers:
+    - hennipa

@@ -1,0 +1,88 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish"
+        required: true
+
+jobs:
+  pypi:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/md5check
+    permissions:
+      id-token: write  # For PyPI trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install build
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  conda:
+    name: Publish to Conda
+    runs-on: ubuntu-latest
+    needs: [pypi]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          python-version: "3.12"
+          miniforge-version: latest
+
+      - name: Build conda package
+        shell: bash -l {0}
+        run: |
+          conda install conda-build conda-verify anaconda-client -n base -c conda-forge
+          conda build conda.recipe/
+
+      - name: Upload to Anaconda Cloud
+        shell: bash -l {0}
+        env:
+          ANACONDA_TOKEN: {% raw %}${{ secrets.ANACONDA_TOKEN }}{% endraw %}
+        run: |
+          anaconda -t ${ANACONDA_TOKEN} upload \
+            $(conda build conda.recipe/ --output) \
+            --force
+
+  github-release:
+    name: Upload assets to GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: [pypi]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install build
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Upload to Release
+        env:
+          GH_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+        run: |
+          gh release upload {% raw %}${{ github.event.release.tag_name }}{% endraw %} \
+            dist/*.tar.gz \
+            dist/*.whl \
+            --repo {% raw %}${{ github.repository }}{% endraw %}
