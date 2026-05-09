@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/quick_md5check
+      url: https://pypi.org/project/quick_md5check
     permissions:
       id-token: write  # For PyPI trusted publishing
     steps:
@@ -36,7 +36,6 @@ jobs:
   conda:
     name: Publish to Conda
     runs-on: ubuntu-latest
-    needs: [pypi]
     steps:
       - uses: actions/checkout@v4
 
@@ -54,7 +53,7 @@ jobs:
       - name: Upload to Anaconda Cloud
         shell: bash -l {0}
         env:
-          ANACONDA_TOKEN: {% raw %}${{ secrets.QUICK_MD5CHECK_ANACONDA_TOKEN }}{% endraw %}
+          ANACONDA_TOKEN: ${{ secrets.QUICK_MD5CHECK_ANACONDA_TOKEN }}
         run: |
           anaconda -t ${ANACONDA_TOKEN} upload \
             $(conda build conda.recipe/ --output) \
@@ -65,7 +64,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    needs: [pypi]
     steps:
       - uses: actions/checkout@v4
 
@@ -78,11 +76,18 @@ jobs:
       - name: Build distributions
         run: python -m build
 
+      - name: Determine tag name
+        id: tag
+        run: |
+          TAG="${{ github.event.release.tag_name || inputs.version }}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
       - name: Upload to Release
         env:
-          GH_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload {% raw %}${{ github.event.release.tag_name }}{% endraw %} \
+          gh release upload ${{ steps.tag.outputs.tag }} \
             dist/*.tar.gz \
             dist/*.whl \
-            --repo {% raw %}${{ github.repository }}{% endraw %}
+            --repo ${{ github.repository }} \
+            --clobber
