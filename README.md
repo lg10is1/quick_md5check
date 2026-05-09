@@ -1,4 +1,4 @@
-# md5check
+# Quick_md5check
 
 Multi-threaded MD5 checksum generator and verifier. Computes and verifies MD5 hashes for many files in parallel — significantly faster than single-threaded `md5sum` on multi-core systems.
 
