@@ -31,7 +31,7 @@ test:
     - md5check --version
 
 about:
-  home: https://github.com/hennipa/md5check
+  home: https://github.com/lg10is1/quick_md5check
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -41,8 +41,8 @@ about:
     It uses a thread pool to process multiple files concurrently, significantly
     speeding up checksum operations on multi-core systems. Compatible with the
     standard md5sum output format.
-  dev_url: https://github.com/hennipa/md5check
+  dev_url: https://github.com/lg10is1/quick_md5check
 
 extra:
   recipe-maintainers:
-    - hennipa
+    - lg10is1

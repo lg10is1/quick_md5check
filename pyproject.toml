@@ -10,7 +10,7 @@ readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
 authors = [
-  { name = "md5check contributors" },
+  { name = "lg10is1" },
 ]
 dependencies = [
   "tqdm>=4.60.0",
@@ -34,9 +34,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/hennipa/md5check"
-Repository = "https://github.com/hennipa/md5check"
-BugTracker = "https://github.com/hennipa/md5check/issues"
+Homepage = "https://github.com/lg10is1/quick_md5check"
+Repository = "https://github.com/lg10is1/quick_md5check"
+BugTracker = "https://github.com/lg10is1/quick_md5check/issues"
 
 [project.scripts]
 md5check = "md5check.cli:main"

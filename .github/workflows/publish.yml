@@ -54,7 +54,7 @@ jobs:
       - name: Upload to Anaconda Cloud
         shell: bash -l {0}
         env:
-          ANACONDA_TOKEN: {% raw %}${{ secrets.ANACONDA_TOKEN }}{% endraw %}
+          ANACONDA_TOKEN: {% raw %}${{ secrets.QUICK_MD5CHECK_ANACONDA_TOKEN }}{% endraw %}
         run: |
           anaconda -t ${ANACONDA_TOKEN} upload \
             $(conda build conda.recipe/ --output) \

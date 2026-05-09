@@ -26,7 +26,7 @@ conda install -c your-channel md5check
 
 ### From source
 ```bash
-git clone https://github.com/hennipa/md5check.git
+git clone https://github.com/lg10is1/quick_md5check.git
 cd md5check
 pip install -e .
 ```

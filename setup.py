@@ -13,10 +13,14 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     python_requires=">=3.8",
-    author="md5check contributors",
+    author="lg10is1",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    include_package_data=True,
+    project_urls={
+        "Homepage": "https://github.com/lg10is1/quick_md5check",
+        "Repository": "https://github.com/lg10is1/quick_md5check",
+        "Bug Tracker": "https://github.com/lg10is1/quick_md5check/issues",
+    },
     install_requires=["tqdm>=4.60.0"],
     entry_points={
         "console_scripts": [
