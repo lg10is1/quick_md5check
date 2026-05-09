@@ -42,12 +42,12 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: "3.12"
-          miniforge-version: latest
+          miniforge-version: "24.9.0-0"  # use fixed version to avoid python pin conflicts
 
       - name: Build conda package
         shell: bash -l {0}
         run: |
-          conda install conda-build conda-verify anaconda-client -n base -c conda-forge
+          conda install conda-build anaconda-client -n base -c conda-forge
           conda build conda.recipe/
 
       - name: Upload to Anaconda Cloud
