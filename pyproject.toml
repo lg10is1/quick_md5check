@@ -3,7 +3,7 @@ requires = ["setuptools>=40.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "md5check"
+name = "quick_md5check"
 version = "1.0.0"
 description = "Multi-threaded MD5 checksum generator and verifier"
 readme = "README.md"

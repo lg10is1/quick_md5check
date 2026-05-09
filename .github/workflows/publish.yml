@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/md5check
+      url: https://pypi.org/p/quick_md5check
     permissions:
       id-token: write  # For PyPI trusted publishing
     steps:

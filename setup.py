@@ -6,7 +6,7 @@ Reads configuration from pyproject.toml via setuptools.
 from setuptools import find_packages, setup
 
 setup(
-    name="md5check",
+    name="quick_md5check",
     version="1.0.0",
     description="Multi-threaded MD5 checksum generator and verifier",
     long_description=open("README.md", encoding="utf-8").read(),

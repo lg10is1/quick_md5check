@@ -16,12 +16,12 @@ Multi-threaded MD5 checksum generator and verifier. Computes and verifies MD5 ha
 
 ### pip
 ```bash
-pip install md5check
+pip install quick_md5check
 ```
 
 ### conda
 ```bash
-conda install -c your-channel md5check
+conda install -c your-channel quick_md5check
 ```
 
 ### From source

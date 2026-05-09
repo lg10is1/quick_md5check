@@ -1,4 +1,4 @@
-{% set name = "md5check" %}
+{% set name = "quick_md5check" %}
 {% set version = "1.0.0" %}
 
 package:
